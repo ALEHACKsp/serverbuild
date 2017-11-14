@@ -1,0 +1,19 @@
+{
+  "name": "serverbuild",
+  "version": "1.0.1-beta",
+  "description": "Discord Server Setup within seconds.",
+  "main": "index.js",
+  "dependencies": {
+    "discord.js": "^11.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "/y21/serverbuild/"
+  },
+  "author": "y21",
+  "license": "MIT"
+}
