@@ -1,4 +1,4 @@
-const appname = "Serverbuilder";
+const appname = "Serverbuild";
 const discordjs = require("discord.js");
 const client = new discordjs.Client();
 const guildAvailable = require("./src/GuildAvailable.js");
