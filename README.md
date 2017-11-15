@@ -26,3 +26,5 @@ Rightclick the config.json File and change the strings.
 `servericon` is the Server Icon. It can be a URL, Base64-String or a File Path. File Path should look like `"./images/coolimage.png"`<br/>
 `timeout` is the timeout in Milliseconds how long a creation takes.<br/>
 `apptoken` is the Token for your Application. Notice: User Accounts are against the Terms of Services, so use an application. Get your Token from the <a href="https://discordapp.com/developers/applications/me">Discord Developer Page</a>
+## Starting the Application
+Open the command prompt and navigate into bot's directory. Now you can execute the command `node .`
