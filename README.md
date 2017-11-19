@@ -9,7 +9,9 @@ Serverbuild is a <a href="https://nodejs.org/en/">NodeJS</a>-based Application t
 • Verification Level<br/>
 • Servername & Icon
 ## Serverbuilder Setup 
-Once you've downloaded Serverbuilder, you have to install <a href="https://nodejs.org/en/">NodeJS</a> and the <a href="https://github.com/hydrabolt/discord.js">Discord.js</a> Node-Module.<br /><br />
+Once you've downloaded Serverbuilder, you have to install <a href="https://nodejs.org/en/">NodeJS</a> and the <a href="https://github.com/hydrabolt/discord.js">Discord.js</a> Node-Module.<br /><br /> 
+> Remember: (`npm install` installs all required dependencies) 
+>
 <b>Note:</b> Make sure the Discord.js Module is installed in the extracted Serverbuilder Directory
 If you haven't experience with Discord.js or even NodeJS/Serverside Scripting, don't touch the .js Files since they are important.<br/>
 Rightclick the config.json File and change the strings.
