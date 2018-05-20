@@ -1,4 +1,4 @@
-## About Serverbuilder
+## About Serverbuild
 Serverbuild is a <a href="https://nodejs.org/en/">NodeJS</a>-based Application to build setup <a href="https://discordapp.com/">Discord</a> Servers within Seconds using the Discord API-Wrapper <a href="https://github.com/hydrabolt/discord.js">Discord.js</a>. <br/>
 • Timeout between Role/Channel/Emoji Creation to prevent Ratelimits. <br/>
 • 255 Roles maximum<br />
@@ -8,8 +8,8 @@ Serverbuild is a <a href="https://nodejs.org/en/">NodeJS</a>-based Application t
 • Channel Topics<br/>
 • Verification Level<br/>
 • Servername & Icon
-## Serverbuilder Setup 
-Once you've downloaded Serverbuilder, you have to install <a href="https://nodejs.org/en/">NodeJS</a> and the <a href="https://github.com/hydrabolt/discord.js">Discord.js</a> Node-Module.<br /><br /> 
+## Server Setup 
+Once you've downloaded Serverbuild, you have to install <a href="https://nodejs.org/en/">NodeJS</a> and the <a href="https://github.com/hydrabolt/discord.js">Discord.js</a> Node-Module.<br /><br /> 
 > Remember: (`npm install` installs all required dependencies) 
 >
 <b>Note:</b> Make sure the Discord.js Module is installed in the extracted Serverbuilder Directory
