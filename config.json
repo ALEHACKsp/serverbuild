@@ -1,36 +1,45 @@
 {
-  "textChannels": [
-    "rules",
-    "support",
-    "nsfw"
-  ],
-  "textChannelTopic": [
-    "Read these rules please.",
-    "Only questions",
-    false
-  ],
-  "voiceChannels": [
-    "Music",
-    "Cool People"
-  ],
-  "roles": [
-    "Administrator",
-    "VIP"
-  ],
-  "roleColors": [
-    "RED",
-    "GREEN"
-  ],
-  "emojiURLs": [
-    "https://i.redditmedia.com/UEwzwB-90sxfOxpN5kjf3qmfSLS6o-sat995maKZS5Q.png?w=929&s=8685bca4f944568fae1699f42abfdf55"
-  ],
-  "emojiNames": [
-    "thonk"
-  ],
   "verificationLevel": "1",
   "servername": "My Cool Server",
   "serverid": "Server ID",
-  "serverIcon": "https://blog.sqlauthority.com/wp-content/uploads/2007/06/null.png",
-  "timeout": "1000",
-  "apptoken": "Your App-Token"
+  "serverIcon": "https://i.imgur.com/3oaQyeG.png",
+  "timeout": "150",
+  "apptoken": "Your App-Token",
+
+  "channels": [
+    {
+      "name": "rules",
+      "topic": null,
+      "type": "text",
+      "nsfw": false
+    },
+    {
+      "name": "nsfw",
+      "topic": "Not Safe for Work",
+      "type": "text",
+      "nsfw": true
+    },
+    {
+      "name": "Music",
+      "type": "voice"
+    }
+  ],
+  "roles": [
+    {
+      "name": "Administrator",
+      "permissions": 8,
+      "color": 16711680
+    },
+    {
+      "name": "Trusted",
+      "permissions": 0,
+      "color": 65280
+    }
+  ],
+  "emojis": [
+    {
+      "name": "thonk",
+      "url": "https://i.redditmedia.com/UEwzwB-90sxfOxpN5kjf3qmfSLS6o-sat995maKZS5Q.png?w=929&s=8685bca4f944568fae1699f42abfdf55"
+    }
+  ]
 }
