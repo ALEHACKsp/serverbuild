@@ -11,17 +11,30 @@
       "name": "rules",
       "topic": null,
       "type": "text",
-      "nsfw": false
+      "nsfw": false,
+      "ratelimit": null,
+      "position": 0
     },
     {
       "name": "nsfw",
       "topic": "Not Safe for Work",
       "type": "text",
-      "nsfw": true
+      "nsfw": true,
+      "ratelimit": null,
+      "position": 1
+    },
+    {
+      "name": "general",
+      "topic": "General chat",
+      "type": "text",
+      "nsfw": false,
+      "ratelimit": 1,
+      "position": 2
     },
     {
       "name": "Music",
-      "type": "voice"
+      "type": "voice",
+      "position": 3
     }
   ],
   "roles": [
