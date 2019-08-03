@@ -4,7 +4,7 @@
   "description": "Discord Server Setup within seconds.",
   "main": "index.js",
   "dependencies": {
-    "discord.js": "^11.2.1"
+    "discord.js": "^11.5.1"
   },
   "devDependencies": {},
   "scripts": {
