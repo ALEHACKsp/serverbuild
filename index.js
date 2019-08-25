@@ -55,7 +55,7 @@ client.on("ready", async () => {
     console.log("Adding roles...");
     for (let i = 0; i < config.roles.length; ++i) {
         await wait();
-        await targetServer.createChannel({
+        await targetServer.createRole({
             name: config.roles[i].name,
             permissions: config.roles[i].permissions,
             color: config.roles[i].color
