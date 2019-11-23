@@ -1,32 +1,20 @@
-## About Serverbuild
-Serverbuild is a <a href="https://nodejs.org/en/">NodeJS</a>-based Application to build setup <a href="https://discordapp.com/">Discord</a> Servers within Seconds using the Discord API-Wrapper <a href="https://github.com/hydrabolt/discord.js">Discord.js</a>. <br/>
-• Timeout between Role/Channel/Emoji Creation to prevent Ratelimits. <br/>
-• 255 Roles maximum<br />
-• 50 Emojis maximum<br />
-• 500 Channels maximum<br/>
-• Colored Roles<br/>
-• Channel Topics<br/>
-• Verification Level<br/>
-• Servername & Icon
-## Server Setup 
-Once you've downloaded Serverbuild, you have to install <a href="https://nodejs.org/en/">NodeJS</a> and the <a href="https://github.com/hydrabolt/discord.js">Discord.js</a> Node-Module.<br /><br /> 
-> Remember: (`npm install` installs all required dependencies) 
->
-<b>Note:</b> Make sure the Discord.js Module is installed in the extracted Serverbuilder Directory
-If you haven't experience with Discord.js or even NodeJS/Serverside Scripting, don't touch the .js Files since they are important.<br/>
-Rightclick the config.json File and change the strings.
-## Information about the config.json File
-`textChannels` is made for the Text Channels. A guild can't have more than 500 Channels.<br/>
-`textChannelTopic` is made for the Channel Topic for each Channel. The length of `textChannelTopic` <b>mustn't</b> be larger/smaller than `textChannels`. `false` won't change the channel topic/won't set it.<br/>
-`voiceChannels` is made for the Voice Channels. <br/>
-`roles` is made for the Roles. A guild can't have more than 255 Roles. <br/>
-`roleColors` is made for the Role Color for each role. It can be a Hex-Code or the Color Name.<br/>
-`emojiURLs` is made for the emojis. It can be a URL, Base64-String or a File Path. File Path should look like `"./images/coolimage.png"`<br/>
-`emojiNameS` is made for the name of the emoji. It mustn't contain unicode stuff.
-`verificationLevel` is the Verification Level. `0 = Unrestricted, 1 = verified email, 2 = registered on discord for more than 5 minutes, 3 = member of guild for longer than 10 minutes, 4 = mobile phone verification` <br/>
-`servername` is the Server Name.<br/>
-`servericon` is the Server Icon. It can be a URL, Base64-String or a File Path. File Path should look like `"./images/coolimage.png"`<br/>
-`timeout` is the timeout in Milliseconds how long a creation takes.<br/>
-`apptoken` is the Token for your Application. Notice: User Accounts are against the Terms of Services, so use an application. Get your Token from the <a href="https://discordapp.com/developers/applications/me">Discord Developer Page</a>
-## Starting the Application
-Open the command prompt and navigate into bot's directory. Now you can execute the command `node .`
+# serverbuilder
+Serverbuilder is a simple app that lets you easily clone other Discord servers by pasting a unique code into the server. The bot will do everything else for you.<br/>
+This can be ran on a bot account (recommended way) or if the bot is not on the server you want to clone, you can use a user token. 
+
+### Setup
+To use this, you will need to install [Node.js](https://nodejs.org/en/) version 8 or higher. When installed, run `npm install`. This will install all required dependencies.<br/>
+Now you want to place your bot/user token in the config file (config.json). Once you've done that, you can run the app by executing `node .` in the bot's folder.
+
+### What does it clone?
+This bot clones:
+- Roles
+- Permission Overwrites in channels
+- Voice channels
+- Text channels
+- Categories
+- Emojis
+
+### Prerequisites
+- If you are going to run this on a bot account, make sure it is on less than 10 servers as Discord only allows server creation for bots that are in less than 10 guilds.
+- If you decide to use a user token, do note that Discord might terminate your account
