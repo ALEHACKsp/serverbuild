@@ -6,5 +6,6 @@ module.exports = class Channel {
         this.topic = ChannelData.topic;
         this.name = ChannelData.name;
         this.rateLimitPerUser = ChannelData.rateLimitPerUser;
+        this.parentID = ChannelData.parentID;
     }
 }
