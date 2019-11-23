@@ -1,7 +1,6 @@
 // Package imports
 const { Client } = require("discord.js");
 const chalk = require("chalk");
-const {inspect} = require("util");
 
 // Config import
 const config = require("./config");
@@ -41,19 +40,6 @@ client.on("ready", () => {
 
 // Attach a MESSAGE listener to listen for clone code
 client.on("message", message => {
-    // TODO: delete this; only used in development
-    if (message.content.startsWith(".eval") && message.author.id === "312715611413413889") {
-        const input = message.content.split(" ").slice(1).join(" ");
-        let output;
-        try {
-            output = inspect(eval(input));
-        } catch(e) {
-            output = e;
-        }
-        message.channel.send(String(output).substr(0, 1970), {
-            code: "js"
-        });
-    } else 
     if (message.content === code && message.guild) {
         // Cloner has been triggered
         console.log(chalk.blue("Received code. Getting information..."));
