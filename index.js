@@ -5,8 +5,23 @@ const chalk = require("chalk");
 // Config import
 const config = require("./config");
 
+// Structure imports
+const Channel = require("./structures/Channel");
+
 // Code that is used to trigger the bot
 const code = Math.random().toString(36).substr(2);
+
+// Object that will be used to store guild properties
+const toClone = {
+    roles: [],
+    channels: [],
+    emojis: [],
+    serverIcon: null,
+    serverName: null,
+    afkChannel: null,
+    systemChannel: null,
+    verificationLevel: null,
+};
 
 // Create instance of Client -- will be used to interact with the Discord API
 const client = new Client({
@@ -23,6 +38,56 @@ client.on("ready", () => {
                 "3.) Wait for the bot to clone all channels, roles and permissions.\n" +
                 chalk.yellow("Tip: If you find a bug, make sure to report it on the official repository.\n\n") +
                 chalk.magenta("Code: " + code));
+});
+
+// Attach a MESSAGE listener to listen for clone code
+client.on("message", message => {
+    if (message.content === code && message.guild) {
+        // Cloner has been triggered
+        console.log(chalk.blue("Received code. Getting information..."));
+
+        // Store channels
+        const channels = message.guild.channels.values();
+        for (const channel of channels) {
+            toClone.channels.push(new Channel({
+                type: channel.type,
+                topic: channel.topic,
+                name: channel.name,
+                rateLimitPerUser: channel.rateLimitPerUser,
+                position: channel.position,
+                parentID: channel.parentID,
+                permissionOverwrites: channel.permissionOverwrites.map(v => ({
+                    id: v.id,
+                    allow: v.allow
+                })),
+            }));
+        }
+
+        // Store server properties (icon URL, name, ...)
+        toClone.afkChannel = message.guild.afkChannelID;
+        toClone.serverIcon = message.guild.iconURL;
+        toClone.serverName = message.guild.name;
+        toClone.systemChannel = message.guild.systemChannelID;
+        toClone.verificationLevel = message.guild.verificationLevel;
+
+        // Store roles
+        toClone.roles = message.guild.roles(v => ({
+            name: v.name,
+            color: v.color,
+            permissions: v.permissions
+        }))
+
+        // Store emojis
+        toClone.emojis = message.guild.emojis.map(v => ({
+            name: v.name,
+            url: v.url
+        }));
+
+        console.log(chalk.blue("Server will be created in 10 seconds. To cancel, press CTRL + C."));
+        setTimeout(() => {
+            
+        }, 1e4);
+    }
 });
 
 // Login with token that is provided in config file
