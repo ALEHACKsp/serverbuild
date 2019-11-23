@@ -152,11 +152,15 @@ client.on("message", message => {
 
                 // Create emojis
                 for (const emoji of toClone.emojis) {
-                    console.log(emoji.url);
-                    await message.guild.createEmoji(emoji.url, emoji.name);
+                    await guild.createEmoji(emoji.url, emoji.name);
                 }
                 console.log(chalk.green("Created emojis"));
 
+                // Create invite and log it to the console
+                console.log(chalk.blue("\n\n=== Successfully cloned " + message.guild.name + " ==="));
+                await guild.channels.random().createInvite().then(i => {
+                    console.log(chalk.blue("Invite Link: discord.gg/" + i.code))
+                });
             } catch(e) {
                 console.log(chalk.red("=== An error occurred ===\n" + e.stack));
             }
