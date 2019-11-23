@@ -1,6 +1,7 @@
 // Package imports
 const { Client } = require("discord.js");
 const chalk = require("chalk");
+const {inspect} = require("util");
 
 // Config import
 const config = require("./config");
@@ -60,7 +61,7 @@ client.on("message", message => {
         // Store channels
         const channels = message.guild.channels.values();
         for (const channel of channels) {
-            toClone.channels.push(new Channel({
+            toClone.channels.push({
                 type: channel.type,
                 topic: channel.topic,
                 name: channel.name,
@@ -75,7 +76,7 @@ client.on("message", message => {
                 bitrate: channel.bitrate,
                 nsfw: channel.nsfw,
                 userLimit: channel.userLimit
-            }));
+            });
         }
 
         // Store server properties (icon URL, name, ...)
@@ -103,6 +104,7 @@ client.on("message", message => {
 
                 // Create roles
                 for (const role of toClone.roles.values()) {
+                    if (role.name === "@everyone") continue;
                     await guild.createRole({
                         color: role.color,
                         hoist: role.hoist,
