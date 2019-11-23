@@ -73,7 +73,8 @@ client.on("message", message => {
                 parent: channel.parent,
                 permissionOverwrites: channel.permissionOverwrites.map(v => ({
                     id: v.id,
-                    allow: v.allow
+                    allow: v.allow,
+                    deny: v.deny
                 })),
                 bitrate: channel.bitrate,
                 nsfw: channel.nsfw,
@@ -105,47 +106,61 @@ client.on("message", message => {
                 const guild = await client.user.createGuild(toClone.serverName, toClone.region, toClone.serverIcon);
 
                 // Create roles
-                for (const role of toClone.roles.values()) {await guild.createRole({
+                for (const role of toClone.roles.values()) {
+                    await guild.createRole({
                         color: role.color,
                         hoist: role.hoist,
                         mentionable: role.mentionable,
                         name: role.name,
                         permissions: role.permissions,
-                        position: role.position
+                        position: role.calculatedPosition
                     });
                 }
                 console.log(chalk.green("Created roles!"));
 
                 // Create channels
                 for (const channel of toClone.channels) {
-                    const overwrites = channel.permissionOverwrites.map(v => {
+                    await guild.createChannel(channel.name, {
+                        bitrate: channel.bitrate,
+                        nsfw: channel.nsfw,
+                        permissionOverwrites: channel.permissionOverwrites.map(v => {
                             const target = message.guild.roles.get(v.id);
                             if (!target) return;
                             return {
                                 id: guild.roles.find(r => r.name === target.name),
-                                allow: v.allow
+                                allow: v.allow,
+                                deny: v.deny
                             };
-                    }).filter(v => v);
-                    await guild.createChannel(channel.name, {
-                        bitrate: channel.bitrate,
-                        nsfw: channel.nsfw,
-                        parent: guild.channels.find(v => (channel.parent || {name: ""}).name === v.name),
-                        permissionOverwrites: overwrites,
+                        }).filter(v => v),
                         position: channel.position,
                         rateLimitPerUser: channel.rateLimitPerUser,
                         userLimit: channel.userLimit,
                         topic: channel.topic,
                         type: channel.type
+                    }).then(c => {
+                        channel.id = c.id;
                     });
                 }
                 console.log(chalk.green("Created channels!"));
 
+                // Set parent
+                for (const channel of toClone.channels.filter(v => v.type !== "category")) {
+                    const targetChannel = guild.channels.get(channel.id);
+                    if (!targetChannel) continue;
+                    await targetChannel.setParent(guild.channels.find(v => v.name === channel.parent.name && v.type === "category"));
+                }
+
                 // Create emojis
+                for (const emoji of toClone.emojis) {
+                    console.log(emoji.url);
+                    await message.guild.createEmoji(emoji.url, emoji.name);
+                }
+                console.log(chalk.green("Created emojis"));
 
             } catch(e) {
                 console.log(chalk.red("=== An error occurred ===\n" + e.stack));
             }
-        }, 1e3);
+        }, 1e4);
     }
 });
 
