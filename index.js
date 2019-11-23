@@ -1,13 +1,9 @@
 // Package imports
 const { Client } = require("discord.js");
 const chalk = require("chalk");
-const { inspect } = require("util");
 
 // Config import
 const config = require("./config");
-
-// Structure imports
-const Channel = require("./structures/Channel");
 
 // Code that is used to trigger the bot
 const code = Math.random().toString(36).substr(2);
