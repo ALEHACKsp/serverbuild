@@ -1,4 +1,5 @@
 # serverbuilder
+<img src="https://user-images.githubusercontent.com/30553356/69485604-f12ad280-0e41-11ea-828c-402f0e193d2d.png"><br/>
 Serverbuilder is a simple app that lets you easily clone other Discord servers by pasting a unique code into the server. The bot will do everything else for you.<br/>
 This can be ran on a bot account (recommended way) or if the bot is not on the server you want to clone, you can use a user token. 
 
