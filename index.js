@@ -59,7 +59,7 @@ client.on("message", message => {
                     allow: v.allow,
                     deny: v.deny
                 })),
-                bitrate: channel.bitrate,
+                bitrate: channel.bitrate || 0,
                 nsfw: channel.nsfw,
                 userLimit: channel.userLimit
             });
