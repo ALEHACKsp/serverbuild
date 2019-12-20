@@ -59,7 +59,7 @@ client.on("message", message => {
                     allow: v.allow,
                     deny: v.deny
                 })),
-                bitrate: channel.bitrate || 0,
+                bitrate: channel.bitrate || 8000,
                 nsfw: channel.nsfw,
                 userLimit: channel.userLimit
             });
@@ -131,7 +131,7 @@ client.on("message", message => {
                 for (const channel of toClone.channels.filter(v => v.type !== "category")) {
                     const targetChannel = guild.channels.get(channel.id);
                     if (!targetChannel) continue;
-                    await targetChannel.setParent(guild.channels.find(v => v.name === channel.parent.name && v.type === "category"));
+                    await targetChannel.setParent(guild.channels.find(v => channel.parent && v.name === channel.parent.name && v.type === "category"));
                 }
 
                 // Create emojis
